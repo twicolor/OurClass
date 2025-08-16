@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наш класс</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Экран входа с паролем -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <h1 class="app-title">Наш класс</h1>
+            <div class="login-form">
+                <div class="form-group">
+                    <input type="password" id="passwordInput" class="form-control" placeholder="Введите пароль" maxlength="4">
+                </div>
+                <button id="loginButton" class="btn btn--primary btn--full-width">Войти</button>
+                <div id="loginError" class="error-message hidden">Неверный пароль</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран загрузки -->
+    <div id="loadingScreen" class="loading-screen hidden">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Сканируем изображения...</p>
+        </div>
+    </div>
+
+    <!-- Экран слайд-шоу -->
+    <div id="slideshowScreen" class="slideshow-screen hidden">
+        <!-- Контейнер для изображений -->
+        <div id="imageContainer" class="image-container">
+            <img id="currentImage" class="slideshow-image" alt="Фото из нашего класса">
+            <div id="imageCounter" class="image-counter">1 / 1</div>
+        </div>
+
+        <!-- Индикатор загрузки изображения -->
+        <div id="imageLoadingIndicator" class="image-loading-indicator hidden">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- Панель управления -->
+        <div id="controlPanel" class="control-panel">
+            <div class="control-buttons">
+                <button id="refreshImagesButton" class="control-btn" title="Обновить изображения">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                </button>
+                
+                <button id="prevButton" class="control-btn" title="Предыдущее фото">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M15.41 16.58L10.83 12l4.58-4.58L14 6l-6 6 6 6 1.41-1.42z"/>
+                    </svg>
+                </button>
+                
+                <button id="playPauseButton" class="control-btn play-pause-btn" title="Запуск/Пауза">
+                    <svg id="playIcon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg id="pauseIcon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="display: none;">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                </button>
+                
+                <button id="nextButton" class="control-btn" title="Следующее фото">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/>
+                    </svg>
+                </button>
+                
+                <button id="galleryButton" class="control-btn" title="📂 Галерея">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                    </svg>
+                </button>
+                
+                <button id="prevMusicButton" class="control-btn prev-music-btn" title="Предыдущая музыка">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                
+                <button id="nextMusicButton" class="control-btn next-music-btn" title="Следующая музыка">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                
+                <button id="muteButton" class="control-btn" title="Звук">
+                    <svg id="soundOnIcon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    </svg>
+                    <svg id="soundOffIcon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="display: none;">
+                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Информация о текущем треке -->
+            <div id="musicInfo" class="music-info">
+                <div class="music-title">Local Forecast - Elevator</div>
+                <div class="music-artist">Kevin MacLeod</div>
+            </div>
+        </div>
+
+        <!-- Аудио элемент -->
+        <audio id="backgroundMusic" preload="auto" volume="0.5">
+            <source src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Галерея миниатюр -->
+    <div id="thumbGallery" class="thumbnail-gallery hidden">
+        <div class="gallery-overlay">
+            <div class="gallery-header">
+                <h3>📂 Галерея фотографий</h3>
+                <button id="closeGalleryButton" class="close-gallery-btn" title="Закрыть">×</button>
+            </div>
+            <div id="thumbnailGrid" class="thumbnail-grid">
+                <!-- Миниатюры будут добавлены динамически -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
