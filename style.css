@@ -826,13 +826,59 @@ select.form-control {
     font-size: var(--font-size-base);
 }
 
+/* Error Overlay */
+.error-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1002;
+    backdrop-filter: blur(4px);
+}
+
+.error-overlay.hidden {
+    display: none;
+}
+
+.error-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    padding: var(--space-32);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: var(--shadow-lg);
+}
+
+.error-icon {
+    font-size: 64px;
+    margin-bottom: var(--space-16);
+}
+
+.error-container h2 {
+    margin-bottom: var(--space-16);
+    color: var(--color-error);
+}
+
+.error-container p {
+    margin-bottom: var(--space-24);
+    color: var(--color-text-secondary);
+}
+
 /* Main App */
 .main-app {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: var(--color-background);
+    background: var(--color-charcoal-800);
     overflow: hidden;
+    position: relative;
 }
 
 /* Slideshow Container */
@@ -874,11 +920,26 @@ select.form-control {
     font-weight: var(--font-weight-medium);
 }
 
-/* Control Panel */
+/* Floating Control Panel */
 .control-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--color-surface);
-    border-top: 1px solid var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--space-16);
+    box-shadow: var(--shadow-lg);
+    transition: opacity 0.4s ease;
+    opacity: 1;
+    z-index: 100;
+    min-width: 300px;
+}
+
+.control-panel.hidden-panel {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .controls-row {
@@ -941,8 +1002,8 @@ select.form-control {
     font-size: var(--font-size-sm);
 }
 
-/* Modal */
-.modal {
+/* Gallery Overlay */
+.gallery-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -956,11 +1017,11 @@ select.form-control {
     backdrop-filter: blur(4px);
 }
 
-.modal.hidden {
+.gallery-overlay.hidden {
     display: none;
 }
 
-.modal-content {
+.gallery-content {
     background: var(--color-surface);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border);
@@ -971,7 +1032,7 @@ select.form-control {
     box-shadow: var(--shadow-lg);
 }
 
-.modal-header {
+.gallery-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -979,7 +1040,7 @@ select.form-control {
     border-bottom: 1px solid var(--color-border);
 }
 
-.modal-header h3 {
+.gallery-header h3 {
     margin: 0;
     color: var(--color-text);
 }
@@ -1021,6 +1082,14 @@ select.form-control {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .control-panel {
+        min-width: 280px;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+    }
+    
     .controls-row {
         gap: var(--space-16);
     }
@@ -1054,6 +1123,7 @@ select.form-control {
 @media (max-width: 480px) {
     .control-panel {
         padding: var(--space-12);
+        min-width: auto;
     }
     
     .controls-row {
@@ -1067,6 +1137,10 @@ select.form-control {
     
     .password-container {
         padding: var(--space-20);
+    }
+    
+    .error-container {
+        padding: var(--space-24);
     }
 }
 

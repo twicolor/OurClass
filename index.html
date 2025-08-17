@@ -29,6 +29,16 @@
         </div>
     </div>
 
+    <!-- Error Overlay -->
+    <div id="errorOverlay" class="error-overlay hidden">
+        <div class="error-container">
+            <div class="error-icon">⚠️</div>
+            <h2>Ошибка загрузки</h2>
+            <p id="errorMessage">Не удалось загрузить изображения и музыку из репозитория</p>
+            <button id="retryBtn" class="btn btn--primary">Попробовать снова</button>
+        </div>
+    </div>
+
     <!-- Main Application -->
     <div id="mainApp" class="main-app hidden">
         <!-- Slideshow Container -->
@@ -43,8 +53,8 @@
             </div>
         </div>
 
-        <!-- Control Panel -->
-        <div class="control-panel">
+        <!-- Floating Control Panel -->
+        <div id="controlPanel" class="control-panel">
             <div class="controls-row">
                 <!-- Slideshow Controls -->
                 <div class="control-group">
@@ -63,9 +73,6 @@
                 <div class="control-group">
                     <button id="prevTrackBtn" class="btn btn--secondary control-btn" title="Предыдущий трек">
                         <span class="control-icon">⏮️</span>
-                    </button>
-                    <button id="musicPlayPauseBtn" class="btn btn--secondary control-btn" title="Пауза/Воспроизведение музыки">
-                        <span class="control-icon">⏸️</span>
                     </button>
                     <button id="nextTrackBtn" class="btn btn--secondary control-btn" title="Следующий трек">
                         <span class="control-icon">⏭️</span>
@@ -91,10 +98,10 @@
             </div>
         </div>
 
-        <!-- Gallery Modal -->
-        <div id="galleryModal" class="modal hidden">
-            <div class="modal-content">
-                <div class="modal-header">
+        <!-- Gallery Overlay -->
+        <div id="galleryOverlay" class="gallery-overlay hidden">
+            <div class="gallery-content">
+                <div class="gallery-header">
                     <h3>Галерея</h3>
                     <button id="closeGalleryBtn" class="btn btn--secondary">Закрыть</button>
                 </div>
@@ -105,7 +112,7 @@
         </div>
 
         <!-- Audio Element -->
-        <audio id="audioPlayer" preload="none"></audio>
+        <audio id="audioPlayer" preload="none" style="display: none;"></audio>
     </div>
 
     <script src="app.js"></script>
